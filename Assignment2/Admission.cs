@@ -2,7 +2,7 @@
 {
     internal class Admission
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Input the marks obtained in Physics:");
             int maths = Convert.ToInt16(Console.ReadLine());
