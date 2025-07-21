@@ -37,8 +37,8 @@ class Product
         Console.WriteLine("Product Name     : " + pname);
         Console.WriteLine("Quantity in Stock: " + qty_in_stock);
         Console.WriteLine("Discount Allowed : " + discount_allowed + "%");
-        Console.WriteLine("Price per Unit   : ₹" + price);
-        Console.WriteLine("Brand            : " + brand);
+        Console.WriteLine("Price per Unit   : $" + price);
+        //Console.WriteLine("Brand            : " + brand);
         Console.WriteLine("");
     }
 
@@ -153,20 +153,32 @@ class Program
             return;
         }
 
-        // Calculation with Republic Day 50% Discount
+        
         double originalTotal = selectedProduct.price * qty;
-        double discountedTotal = originalTotal * 0.5; // 50% Republic Day discount
+        double finalAmount = originalTotal*selectedProduct.discount_allowed/100 ;
 
-        Console.WriteLine("\n--- Bill ---");
+        DateTime today = DateTime.Now;
+
+        if(today.Month == 1 && today.Day == 26) // Republic Day
+        {
+            double discountedTotal = originalTotal * 0.5;
+            finalAmount = discountedTotal;
+            Console.WriteLine("Republic Day Discount (50%) Applied!");
+        }
+        else
+        {
+            Console.WriteLine("No discount available today.");
+        }
+
+        Console.WriteLine("\n Bill ");
         Console.WriteLine("Product Name : " + selectedProduct.pname);
         Console.WriteLine("Quantity     : " + qty);
-        Console.WriteLine("Unit Price   : ₹" + selectedProduct.price);
-        Console.WriteLine("Original Total: ₹" + originalTotal);
-        Console.WriteLine("Republic Day Discount (50%) Applied!");
-        Console.WriteLine("Final Amount to Pay: ₹" + discountedTotal);
+        Console.WriteLine("Unit Price   : $" + selectedProduct.price);
+        Console.WriteLine("Original Total: $" + originalTotal);
+        Console.WriteLine("Final Amount to Pay: $" + finalAmount);
         Console.WriteLine("Thank you for shopping!");
 
-        // Update stock
+
         selectedProduct.qty_in_stock -= qty;
     }
 }
