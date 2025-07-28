@@ -38,7 +38,7 @@ class Product
         Console.WriteLine("Quantity in Stock: " + qty_in_stock);
         Console.WriteLine("Discount Allowed : " + discount_allowed + "%");
         Console.WriteLine("Price per Unit   : $" + price);
-        //Console.WriteLine("Brand            : " + brand);
+        Console.WriteLine("Brand            : " + brand);
         Console.WriteLine("");
     }
 
