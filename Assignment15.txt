@@ -1,0 +1,129 @@
+CREATE TABLE employee(
+    emp_id integer primary key IDENTITY(100,1),
+    name varchar(25) not null,
+    exp integer check (exp >= 2),
+    salary integer check(salary between 12000 AND 30000),
+    dept_name varchar(25) check(dept_name IN('HR','Sales','Accts','IT')),
+    manager_name varchar(25)
+    
+    );
+
+INSERT INTO employee (name, exp, salary, dept_name, manager_name)
+VALUES
+    ('Alice Williams', 4, 28000, 'IT', 'Jane Smith'),
+    ('Bob Brown', 6, 22500, 'Sales', 'Peter Jones'),
+    ('Charlie Green', 9, 29000, 'HR', 'John Doe'),
+    ('Diana Prince', 3, 15000, 'Accts', 'Chris Miller');
+
+
+--1--
+select emp_id,name,salary from employee;
+
+--2--
+select emp_id as EmployeeID, name as NameOfEmployee, salary as SalaryOfEmployee from employee;
+
+--3--
+select name, salary, salary*1.10 AS incrementedSalary from employee;
+
+--4--
+select dept_name, sum(salary) as totalSalary from employee group by dept_name;
+
+--5--
+select sum(salary) as totalSalary, max(salary) as maximumSalary, avg(salary) as averageSalary, dept_name from employee group by dept_name;
+
+--6--
+select * from employee order by salary;
+
+--7--
+SELECT ROW_NUMBER() OVER (ORDER BY emp_id) AS sequence_id,emp_id,name,salary,dept_name FROM employee;
+
+--8--
+SELECT name,salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS salary_rank
+FROM employee
+ORDER BY salary_rank ASC;
+
+--9--
+ALTER TABLE employee
+ADD age INT NOT NULL DEFAULT 26 CHECK (age BETWEEN 26 AND 60);
+
+--12--
+SELECT COUNT(DISTINCT dept_name) AS number_of_departments
+FROM employee;
+
+--13--
+SELECT UPPER(name) AS uppercase_name
+FROM employee;
+
+--14--
+SELECT SUBSTRING(name, 1, 4) AS first_four_letters
+FROM employee;
+
+
+--15--
+SELECT name,CHARINDEX('a', LOWER(name)) AS position_of_a
+FROM employee;
+
+--16--
+SELECT
+    dept_name,
+    COUNT(emp_id) AS total_employees
+FROM
+    employee
+GROUP BY
+    dept_name;
+
+--17--
+SELECT
+    manager_name,
+    COUNT(emp_id) AS total_employees
+FROM
+    employee
+GROUP BY
+    manager_name;
+
+--18--
+SELECT *
+FROM employee
+WHERE emp_id IN (101, 102, 110);
+
+--19--
+SELECT *
+FROM employee
+WHERE emp_id BETWEEN 100 AND 102;
+
+--20--
+SELECT *
+FROM employee
+WHERE dept_name = 'HR';
+
+--21--
+SELECT *
+FROM employee
+WHERE dept_name IN ('HR', 'Accts');
+
+--22--
+SELECT *
+FROM employee
+WHERE name LIKE 'A%';
+
+--23--
+SELECT *
+FROM employee
+WHERE name LIKE '%a%';
+
+--24--
+SELECT
+    dept_name,
+    AVG(salary) AS average_salary
+FROM
+    employee
+GROUP BY
+    dept_name
+HAVING
+    AVG(salary) < 12000;
+    
+--25--
+SELECT *
+FROM employee
+WHERE
+    dept_name <> 'Accts' AND salary NOT BETWEEN 10000 AND 20000;

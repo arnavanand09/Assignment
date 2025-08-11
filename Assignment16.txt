@@ -1,0 +1,80 @@
+CREATE TABLE Worker (WORKER_ID integer primary key,
+	FIRST_NAME varchar(25) not null,
+	LAST_NAME varchar(25),
+	SALARY integer check (SALARY between 10000 and 50000),
+	JOINING_DATE DATETIME,
+	DEPARTMENT varchar(25) check (DEPARTMENT IN ('HR','Sales','Accts','IT'))
+);
+
+
+INSERT INTO Worker VALUES(101,'Arjun','Maini',12000,'2016-06-11 11:12:24', 'HR'),
+(102,'Arun','bale',19000,'2016-06-12 11:13:25', 'Sales'),
+(103,'Arnav','smith',20000,'2016-06-13 11:14:23', 'Accts'),
+(104,'Aryan','gayle',34000,'2016-06-14 11:15:33', 'IT'),
+(105,'Abhi','stock',30000,'2016-06-15 11:16:32', 'IT'),
+(106,'Anand','hogaya',41000,'2016-06-16 11:22:46', 'HR');
+
+
+--1
+SELECT FIRST_NAME as WORKER_NAME from Worker;
+
+
+--2
+SELECT  UPPER(FIRST_NAME) from Worker;
+
+--3
+SELECT distinct DEPARTMENT from Worker;
+
+--4
+SELECT SUBSTRING(FIRST_NAME,1,3) AS First_three from Worker;
+
+--5
+SELECT CHARINDEX('Arun','a') AS positionofA;
+
+--6--
+SELECT RTRIM(FIRST_NAME) from Worker;
+
+--7--
+SELECT LTRIM(DEPARTMENT) from Worker;
+
+--8
+SELECT distinct(DEPARTMENT),LEN(DEPARTMENT) from Worker;
+
+--9
+SELECT REPLACE(FIRST_NAME,'a','A') from Worker;
+
+--10--
+SELECT CONCAT(FIRST_NAME,' ',LAST_NAME) AS Complete_Name FROM Worker;
+
+--11--
+SELECT * FROM Worker order by FIRST_NAME;
+
+--12--
+SELECT * FROM Worker order by FIRST_NAME asc, DEPARTMENT desc ;
+
+--13--
+SELECT * from Worker where FIRST_NAME IN ('Aryan','Arnav');
+
+--14--
+SELECT * from Worker where FIRST_NAME NOT IN ('Aryan','Arnav');
+
+--15--
+SELECT * from Worker where DEPARTMENT IN ('sales');
+
+--16--
+SELECT * from Worker where FIRST_NAME like "%a%";
+
+--17--
+SELECT * from Worker where FIRST_NAME like "%a";
+
+--18--
+SELECT * from Worker where FIRST_NAME like '_____h'; 
+
+--19--
+SELECT * from Worker where SALARY between 10000 and 50000;
+
+--20--
+SELECT * from Worker where JOINING_DATE >= '2016-06-01' AND JOINING_DATE < '2016-06-19';
+
+--21--
+SELECT count(*) from worker where DEPARTMENT = 'Sales';
